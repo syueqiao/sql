@@ -7,13 +7,13 @@
 --SELECT
 /* 1. Write a query that returns everything in the customer table. */
 
-SELECT *
+SELECT customer_id, customer_first_name, customer_last_name, customer_postal_code
 FROM customer
 
 /* 2. Write a query that displays all of the columns and 10 rows from the customer table, 
 sorted by customer_last_name, then customer_first_ name. */
 
-SELECT *
+SELECT customer_id, customer_first_name, customer_last_name, customer_postal_code
 FROM customer
 ORDER BY customer_last_name, customer_first_name
 LIMIT 10
@@ -21,9 +21,9 @@ LIMIT 10
 --WHERE
 /* 1. Write a query that returns all customer purchases of product IDs 4 and 9. */
 
-SELECT *
+SELECT product_id, vendor_id, market_date, customer_id, quantity, cost_to_customer_per_qty, transaction_time
 FROM customer_purchases
-WHERE product_id = 4 OR product_id = 9
+WHERE (product_id = 4 OR product_id = 9)
 
 /*2. Write a query that returns all customer purchases and a new calculated column 'price' (quantity * cost_to_customer_per_qty), 
 filtered by customer IDs between 8 and 10 (inclusive) using either:
@@ -32,13 +32,15 @@ filtered by customer IDs between 8 and 10 (inclusive) using either:
 */
 -- option 1
 
-SELECT *, quantity * cost_to_customer_per_qty AS price
+SELECT product_id, vendor_id, market_date, customer_id, quantity, cost_to_customer_per_qty, transaction_time, 
+quantity * cost_to_customer_per_qty AS price
 FROM customer_purchases 
 WHERE customer_id >= 8 AND customer_id <= 10
 
 -- option 2
 
-SELECT *, quantity * cost_to_customer_per_qty AS price
+SELECT product_id, vendor_id, market_date, customer_id, quantity, cost_to_customer_per_qty, transaction_time,
+quantity * cost_to_customer_per_qty AS price
 FROM customer_purchases 
 WHERE customer_id BETWEEN 8 AND 10
 
@@ -75,7 +77,7 @@ FROM product
 /* 1. Write a query that INNER JOINs the vendor table to the vendor_booth_assignments table on the 
 vendor_id field they both have in common, and sorts the result by vendor_name, then market_date. */
 
-SELECT *
+SELECT vendor.vendor_id, vendor_name, vendor_type, vendor_owner_first_name, vendor_owner_last_name
 FROM vendor
 INNER JOIN vendor_booth_assignments on vendor_booth_assignments.vendor_id = vendor.vendor_id
 ORDER BY vendor_name, market_date
@@ -100,7 +102,8 @@ of customers for them to give stickers to, sorted by last name, then first name.
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
 
-SELECT *,sum(quantity * cost_to_customer_per_qty) AS spent
+SELECT product_id, vendor_id, market_date, customer_purchases.customer_id, quantity, cost_to_customer_per_qty, transaction_time,
+sum(quantity * cost_to_customer_per_qty) AS spent
 FROM customer_purchases
 INNER JOIN customer on customer.customer_id = customer_purchases.customer_id
 GROUP BY customer.customer_id 
