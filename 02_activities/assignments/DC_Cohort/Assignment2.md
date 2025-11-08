@@ -14,10 +14,10 @@
     * Open a private window in your browser. Copy and paste the link to your pull request into the address bar. Make sure you can see your pull request properly. This helps the technical facilitator and learning support staff review your submission easily.
 
 Checklist:
-- [ ] Create a branch called `assignment-two`.
-- [ ] Ensure that the repository is public.
-- [ ] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
-- [ ] Verify that the link is accessible in a private browser window.
+- [x] Create a branch called `assignment-two`.
+- [x] Ensure that the repository is public.
+- [x] Review [the PR description guidelines](https://github.com/UofT-DSI/onboarding/blob/main/onboarding_documents/submissions.md#guidelines-for-pull-request-descriptions) and adhere to them.
+- [x] Verify that the link is accessible in a private browser window.
 
 If you encounter any difficulties or have questions, please don't hesitate to reach out to our team via our Slack. Our Technical Facilitators and Learning Support staff are here to help you navigate any challenges.
 
@@ -54,13 +54,22 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+Type 1: "Overwrite this Save File?"
+
+This can be thought about like saving over a save file in a video game. The original information is entirely replaced by the new information. If the store wants to retain customer addresses with this method, a possible architecture is having the CUSTOMER_ADDRESS table have a field to link to an customer ID. Then, for example, when a customer makes a purchase and fills in their updated address with their ID, the old address will be overwritten by the new address and no longer store in that table.
+
+Type 2: "The Infinite Table"
+
+This is like generating a running "log" within a table. Instead of overwriting a field once it is changed, an update is simply reflected as a new row. This would require some kind of unique identifier in the CUSTOMER_ADDRESS table (such as a date and time stamp) to differentiate between old and new entries. When a customer enters their information, for something like purchase, a new row will be created with a timestamp and their information. I can't imagine that this is a good way of storing potentially sensitive data!
+
 ```
 
 ***
 
 ## Section 2:
 You can start this section following *session 4*.
+
+See assignment2.sql
 
 Steps to complete this part of the assignment:
 - Open the assignment2.sql file in DB Browser for SQLite:
@@ -182,6 +191,15 @@ Read: Boykis, V. (2019, October 16). _Neural nets are just people all the way do
 Consider, for example, concepts of labour, bias, LLM proliferation, moderating content, intersection of technology and society, ect. 
 
 
-```
-Your thoughts...
-```
+This is a subject I've thought about on my own time as well, and I always imagine it as the "Always Has Been" meme:
+
+![always has been astronaut meme](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-2D84G0Bkm24spYtTkp2mH0IkUaEZO8C6-w&s)
+
+There are many interesting case studies for this phenomenon. I'm sure lots of people are familiar, but for specific examples that I can think of off the top of my head:
+- ChatGPT uses English vernacular that closely mimics that of workers in developing countries. For instance, "delve" is commonly used in African countries during more formal interactions, as a result of language model training often being outsourced to individuals working for less than $5 a day [(article for your interest)](https://hesamsheikh.substack.com/p/why-does-chatgpt-use-delve-so-much).
+- Actually, that "automatic" AI checkout from Amazon is actually just [workers watching you shop from overseas](https://www.businessinsider.com/amazons-just-walk-out-actually-1-000-people-in-india-2024-4)!
+-  And, one of my favorites: the demo reel for this $20,000 USD robot ([which you can order now!](https://www.1x.tech/neo)) is about 80% human remote controlled from another room. 
+
+This obviously brings up a lot of ethical and societal issues. More often than not, the workers assigned to do the "manual curation" step of training an AI model (which is necessary), are outsourced to countries where wages are low, and worker protections are slim to none. Another complicated aspect of this is the identification of inappropriate, illegal or graphic material. The only way the model can "recognize" this if a real person sits down, looks at those things, then tells the model "this is bad!". [There have already been cases of this being reported](https://www.theguardian.com/technology/2023/aug/02/ai-chatbot-training-human-toll-content-moderator-meta-openai) - some of the material is so graphic that these workers end up traumatized.
+
+In reality, a lot of the advances that we see in AI technology can largely be attributed to the exploitation of workers and other individuals who will likely never see compensation appropriate for their role in generating AI-based companies millions, if not billions, of income. I often wonder how much of seemingly very advanced models are a the Wizard of Oz situation, where if we pull back the curtain, how much of this is a small man in an armchair flipping through prompts?
